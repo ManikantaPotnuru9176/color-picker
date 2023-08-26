@@ -11,11 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
 
-const DisplayColor = ({
-  hexColor,
-  rgbColor,
-  setShowPhotoShopPicker,
-}) => {
+const DisplayColor = ({ hexColor, rgbColor, setShowPhotoShopPicker }) => {
   const toast = useToast();
 
   const handleCopyClick = (color) => {
@@ -30,6 +26,13 @@ const DisplayColor = ({
     });
   };
 
+  const handlePickerToggle = (code) => {
+    setShowPhotoShopPicker((prev) => ({
+      status: !prev.status,
+      code: prev.code === code ? null : code,
+    }));
+  };
+
   return (
     <Container my="12">
       <AspectRatio width="64" ratio={1}>
@@ -39,14 +42,11 @@ const DisplayColor = ({
           rounded="md"
           shadow="sm"
           role="group"
-          initial="rest"
-          animate="rest"
         >
           <Box position="relative" height="100%" width="100%">
             <Stack
               pt="12px"
               width="100%"
-              display="flex"
               alignItems="center"
               justify="center"
               spacing="4"
@@ -65,13 +65,8 @@ const DisplayColor = ({
                   bg={hexColor}
                   w="80%"
                   p={4}
-                  color={"black"}
-                  onClick={() =>
-                    setShowPhotoShopPicker((prev) => ({
-                      status: !prev.status,
-                      code: prev.code ? null : "hex",
-                    }))
-                  }
+                  color="black"
+                  onClick={() => handlePickerToggle("hex")}
                 />
                 <IconButton
                   size="sm"
@@ -88,13 +83,8 @@ const DisplayColor = ({
                   bg={rgbColor}
                   w="80%"
                   p={4}
-                  color={"black"}
-                  onClick={() =>
-                    setShowPhotoShopPicker((prev) => ({
-                      status: !prev.status,
-                      code: prev.code ? null : "rgb",
-                    }))
-                  }
+                  color="black"
+                  onClick={() => handlePickerToggle("rgb")}
                 />
                 <IconButton
                   size="sm"
