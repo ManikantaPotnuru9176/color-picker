@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import {
   AspectRatio,
   Box,
@@ -11,23 +11,15 @@ import {
 } from "@chakra-ui/react";
 import { CopyIcon } from "@chakra-ui/icons";
 
-const DisplayColor = ({ hexColor, rgbColor }) => {
-  const [showCopyText, setShowCopyText] = useState(false);
+const DisplayColor = ({
+  hexColor,
+  rgbColor,
+  setShowPhotoShopPicker,
+}) => {
   const toast = useToast();
-
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setShowCopyText(true);
-    }, 3000);
-
-    return () => {
-      clearTimeout(timer);
-    };
-  }, [hexColor, rgbColor]);
 
   const handleCopyClick = (color) => {
     navigator.clipboard.writeText(color);
-    setShowCopyText(false);
 
     toast({
       title: "Copied!",
@@ -74,6 +66,12 @@ const DisplayColor = ({ hexColor, rgbColor }) => {
                   w="80%"
                   p={4}
                   color={"black"}
+                  onClick={() =>
+                    setShowPhotoShopPicker((prev) => ({
+                      status: !prev.status,
+                      code: prev.code ? null : "hex",
+                    }))
+                  }
                 />
                 <IconButton
                   size="sm"
@@ -91,6 +89,12 @@ const DisplayColor = ({ hexColor, rgbColor }) => {
                   w="80%"
                   p={4}
                   color={"black"}
+                  onClick={() =>
+                    setShowPhotoShopPicker((prev) => ({
+                      status: !prev.status,
+                      code: prev.code ? null : "rgb",
+                    }))
+                  }
                 />
                 <IconButton
                   size="sm"

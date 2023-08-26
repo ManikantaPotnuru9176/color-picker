@@ -5,7 +5,6 @@ import {
   Stack,
   Flex,
   Box,
-  Button,
   Image,
   useColorModeValue,
   Heading,
@@ -13,6 +12,7 @@ import {
 import FileUpload from "./FileUpload";
 import DisplayColor from "./DisplayColor";
 import FilesHistory from "./FilesHistory";
+import PhotoShopPicker from "./PhotoShopPicker";
 
 const ColorPicker = () => {
   const [img, setImg] = useState({
@@ -23,6 +23,10 @@ const ColorPicker = () => {
   const [hexColor, setHexColor] = useState("#000");
   const [rgbColor, setRGBColor] = useState("rgb(0,0,0)");
   const [showInstruction, setShowInstruction] = useState(false);
+  const [showPhotoShopPicker, setShowPhotoShopPicker] = useState({
+    status: false,
+    code: null,
+  });
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -97,26 +101,11 @@ const ColorPicker = () => {
               setImgHistory={setImgHistory}
               imgHistory={imgHistory}
             />
-            <DisplayColor hexColor={hexColor} rgbColor={rgbColor} />
-            {/* <Stack
-              spacing={{ base: 4, sm: 6 }}
-              direction={{ base: "column", sm: "row" }}
-            >
-              <Button
-                rounded={"full"}
-                size={"lg"}
-                fontWeight={"normal"}
-                px={6}
-                colorScheme={"red"}
-                bg={"red.400"}
-                _hover={{ bg: "red.500" }}
-              >
-                Get started
-              </Button>
-              <Button rounded={"full"} size={"lg"} fontWeight={"normal"} px={6}>
-                How It Works
-              </Button>
-            </Stack> */}
+            <DisplayColor
+              hexColor={hexColor}
+              rgbColor={rgbColor}
+              setShowPhotoShopPicker={setShowPhotoShopPicker}
+            />
           </Stack>
           <Flex
             flex={1}
@@ -133,18 +122,29 @@ const ColorPicker = () => {
               width={"full"}
               overflow={"hidden"}
             >
-              <Image
-                alt={img.name}
-                align={"center"}
-                w={"100%"}
-                h={"100%"}
-                src={img.url}
-                onClick={() => {
-                  openEyeDropper();
-                  setShowInstruction(false);
-                }}
-              />
-              {showInstruction && (
+              {!showPhotoShopPicker.status ? (
+                <Image
+                  alt={img.name}
+                  align={"center"}
+                  w={"100%"}
+                  h={"100%"}
+                  src={img.url}
+                  onClick={() => {
+                    openEyeDropper();
+                    setShowInstruction(false);
+                  }}
+                />
+              ) : (
+                <PhotoShopPicker
+                  hexColor={hexColor}
+                  setHexColor={setHexColor}
+                  rgbColor={rgbColor}
+                  setRGBColor={setRGBColor}
+                  showPhotoShopPicker={showPhotoShopPicker}
+                  setShowPhotoShopPicker={setShowPhotoShopPicker}
+                />
+              )}
+              {showInstruction && !showPhotoShopPicker.status && (
                 <Box
                   position="absolute"
                   top="50%"
