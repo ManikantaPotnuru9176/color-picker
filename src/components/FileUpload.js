@@ -31,68 +31,73 @@ const FileUpload = ({ setImg, setImgHistory, imgHistory }) => {
   };
 
   return (
-    <Container my="12">
-      <AspectRatio width="64" ratio={1.6}>
-        <Box
-          borderColor="gray.300"
-          borderStyle="dashed"
-          borderWidth="2px"
-          rounded="md"
-          shadow="sm"
-          role="group"
-        >
-          <Box position="relative" height="100%" width="100%">
-            <Box
-              top="0"
-              left="0"
-              height="100%"
-              width="100%"
-              display="flex"
-              flexDirection="column"
-            >
-              <Stack
+    <Container my={{ base: "4", md: "12" }}>
+      <Container>
+        <AspectRatio width={{ base: "full", md: "64" }} ratio={1.6}>
+          <Box
+            borderColor="gray.300"
+            borderStyle="dashed"
+            borderWidth="2px"
+            rounded="md"
+            shadow="sm"
+            role="group"
+          >
+            <Box position="relative" height="100%" width={"100%"}>
+              <Box
+                position="absolute"
+                top="0"
+                left="0"
                 height="100%"
                 width="100%"
-                alignItems="center"
-                justify="center"
-                spacing="4"
+                display="flex"
+                flexDirection="column"
               >
-                <Stack p="8" textAlign="center" spacing="1">
-                  <Heading fontSize="lg" color="gray.700" fontWeight="bold">
-                    Drop images here
-                  </Heading>
-                  <Text fontWeight="light">or click to upload</Text>
+                <Stack
+                  height="100%"
+                  width="100%"
+                  alignItems="center"
+                  justify="center"
+                  spacing="4"
+                >
+                  <Stack p="8" textAlign="center" spacing="1">
+                    <Heading fontSize="lg" color="gray.700" fontWeight="bold">
+                      Drop images here
+                    </Heading>
+                    <Text fontWeight="light">or click to upload</Text>
+                  </Stack>
                 </Stack>
-              </Stack>
+              </Box>
+              <Input
+                type="file"
+                height="100%"
+                width="100%"
+                opacity="0"
+                accept="image/*"
+                onChange={(e) => handleUpload(e, "file")}
+              />
             </Box>
-            <Input
-              type="file"
-              height="100%"
-              width="100%"
-              opacity="0"
-              accept="image/*"
-              onChange={(e) => handleUpload(e, "file")}
-            />
           </Box>
-        </Box>
-      </AspectRatio>
-      <Text textAlign={"center"} m={2}>
-        OR
-      </Text>
-      <AspectRatio width="64" ratio={4} mt={2}>
-        <InputGroup size="md">
-          <Input
-            placeholder="https://www.image.com/image.png"
-            value={imgUrl}
-            onChange={(e) => setImgUrl(e.target.value)}
-          />
-          <InputRightAddon
-            children="Add"
-            cursor={"pointer"}
-            onClick={(e) => handleUpload(e, "url")}
-          />
-        </InputGroup>
-      </AspectRatio>
+        </AspectRatio>
+      </Container>
+      <Container>
+        <Text textAlign={"center"} m={2}>
+          OR
+        </Text>
+        <AspectRatio width="64" ratio={4} mt={2}>
+          <InputGroup size="md">
+            <Input
+              placeholder="https://www.image.com/image.png"
+              value={imgUrl}
+              onChange={(e) => setImgUrl(e.target.value)}
+            />
+            <InputRightAddon
+              children="Add"
+              cursor={"pointer"}
+              onClick={(e) => handleUpload(e, "url")}
+            />
+          </InputGroup>
+        </AspectRatio>
+      </Container>
     </Container>
   );
 };

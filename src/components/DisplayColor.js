@@ -34,8 +34,8 @@ const DisplayColor = ({ hexColor, rgbColor, setShowPhotoShopPicker }) => {
   };
 
   return (
-    <Container my="12">
-      <AspectRatio width="64" ratio={1}>
+    <Container my={{ base: "4", md: "12" }}>
+      <AspectRatio width={{ base: "full", md: "64" }} ratio={1}>
         <Box
           borderColor="gray.300"
           borderWidth="2px"
@@ -45,7 +45,7 @@ const DisplayColor = ({ hexColor, rgbColor, setShowPhotoShopPicker }) => {
         >
           <Box position="relative" height="100%" width="100%">
             <Stack
-              pt="12px"
+              pt={"12px"}
               width="100%"
               alignItems="center"
               justify="center"

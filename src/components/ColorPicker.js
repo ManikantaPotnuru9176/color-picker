@@ -86,16 +86,25 @@ const ColorPicker = () => {
     >
       <ToggleColorMode />
       <Container maxW={"7xl"}>
-        <Heading size="lg" fontSize="50px" textAlign={"center"} pt={4}>
+        <Heading
+          size="lg"
+          fontSize="50px"
+          textAlign={"center"}
+          pt={{ base: 10, md: 4 }}
+        >
           Color Picker
         </Heading>
         <Stack
           align={"center"}
           spacing={{ base: 8, md: 10 }}
           pt={"4"}
-          direction={{ base: "column", md: "row" }}
+          direction={{ base: "column-reverse", md: "row" }}
         >
-          <Stack flex={1} direction={"row"} spacing={{ base: 5, md: 10 }}>
+          <Stack
+            flex={1}
+            direction={{ base: "column", md: "row" }}
+            spacing={{ base: 5, md: 10 }}
+          >
             <FileUpload
               setImg={setImg}
               setImgHistory={setImgHistory}
